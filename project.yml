@@ -1,0 +1,21 @@
+name: Echo
+options:
+  bundleIdPrefix: com.echo
+  deploymentTarget:
+    iOS: "15.0"
+targets:
+  Echo:
+    type: application
+    platform: iOS
+    sources: [Echo]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.echo.assistant
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: "Echo uses the microphone for voice input."
+        INFOPLIST_KEY_NSSpeechRecognitionUsageDescription: "Echo turns your speech into text."
+        TARGETED_DEVICE_FAMILY: "1"
+        MARKETING_VERSION: 0.1.0
+        CURRENT_PROJECT_VERSION: 1
+        SWIFT_VERSION: 5.9
