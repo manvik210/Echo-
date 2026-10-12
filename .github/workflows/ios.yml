@@ -1,0 +1,26 @@
+name: Build iOS
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: brew install xcodegen
+      - run: xcodegen generate
+      - name: Build
+        run: >
+          xcodebuild -project Echo.xcodeproj -scheme Echo
+          -configuration Release -sdk iphoneos -derivedDataPath build
+          CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY=""
+      - name: Package IPA
+        run: |
+          mkdir Payload
+          cp -R build/Build/Products/Release-iphoneos/Echo.app Payload/
+          zip -r Echo.ipa Payload
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Echo-ipa
+          path: Echo.ipa
